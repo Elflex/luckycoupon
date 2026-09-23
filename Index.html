@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Claim Your Card — Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-950:#070a14;
+    --navy-900:#0b0f1f;
+    --navy-800:#121a30;
+    --navy-700:#1a2440;
+    --line:#25304d;
+    --ink:#eef1fa;
+    --ink-dim:#a7b0c8;
+    --ink-faint:#6c7690;
+    --red:#ff2a44;
+    --red-dim:#c31c33;
+    --red-glow:rgba(255,42,68,0.35);
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px);}
+  html,body{height:100%;}
+  body{
+    background:var(--navy-950);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .hero{
+    position:relative;
+    min-height:100%;
+    width:100%;
+    display:flex;
+    align-items:center;
+    padding:clamp(28px,6vw,90px) clamp(20px,6vw,90px);
+    background:
+      radial-gradient(1100px 620px at 82% 8%, rgba(255,42,68,0.16), transparent 60%),
+      radial-gradient(900px 500px at 6% 100%, rgba(30,50,100,0.35), transparent 60%),
+      linear-gradient(180deg, var(--navy-950) 0%, #080c18 100%);
+  }
+
+  /* faint engineered grid, subtle, premium — not decorative noise */
+  .grid-field{
+    position:absolute;
+    inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.028) 1px, transparent 1px);
+    background-size:56px 56px;
+    mask-image:linear-gradient(180deg, transparent, rgba(0,0,0,0.9) 18%, rgba(0,0,0,0.9) 82%, transparent);
+    pointer-events:none;
+  }
+
+  .container{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:1280px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:clamp(40px,6vw,64px);
+    align-items:center;
+  }
+
+  /* ---------- left column ---------- */
+  .col-copy{max-width:640px;}
+
+  .brandline{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:clamp(28px,4vw,44px);
+  }
+  .brandline .mark{
+    width:9px;height:9px;border-radius:50%;
+    background:var(--red);
+    box-shadow:0 0 0 4px var(--red-glow);
+  }
+  .brandline span{
+    font-size:13.5px;
+    letter-spacing:0.02em;
+    color:var(--ink-dim);
+    font-weight:500;
+  }
+  .brandline b{color:var(--ink);font-weight:600;}
+
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(2.5rem, 4.6vw, 4.1rem);
+    line-height:1.04;
+    letter-spacing:-0.022em;
+    color:var(--ink);
+  }
+  h1 .redword{
+    color:var(--red);
+  }
+
+  .sub{
+    margin-top:clamp(20px,2.6vw,28px);
+    font-size:clamp(1.02rem, 1.25vw, 1.2rem);
+    line-height:1.6;
+    color:var(--ink-dim);
+    max-width:52ch;
+    font-weight:400;
+  }
+  .sub strong{color:var(--ink);font-weight:600;}
+
+  .cta-row{
+    margin-top:clamp(34px,4vw,46px);
+    display:flex;
+    align-items:center;
+    gap:22px;
+    flex-wrap:wrap;
+  }
+
+  .cta{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:18px 40px;
+    border-radius:9px;
+    background:var(--red);
+    color:#0a0a0f;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:17px;
+    letter-spacing:0.01em;
+    text-decoration:none;
+    border:none;
+    cursor:pointer;
+    box-shadow:0 14px 34px -10px var(--red-glow), 0 0 0 1px rgba(255,255,255,0.06) inset;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .cta:hover{
+    background:#ff415a;
+    transform:translateY(-2px);
+    box-shadow:0 18px 40px -8px var(--red-glow), 0 0 0 1px rgba(255,255,255,0.08) inset;
+  }
+  .cta:active{transform:translateY(0);}
+  .cta:focus-visible{outline:2px solid var(--ink);outline-offset:4px;}
+
+  .microcopy{
+    font-size:13px;
+    color:var(--ink-faint);
+    max-width:180px;
+    line-height:1.45;
+  }
+
+  .stat-row{
+    margin-top:clamp(40px,5vw,56px);
+    display:flex;
+    gap:clamp(28px,4vw,44px);
+    padding-top:26px;
+    border-top:1px solid var(--line);
+  }
+  .stat b{
+    display:block;
+    font-family:'Space Grotesk',sans-serif;
+    font-size:1.5rem;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .stat span{
+    display:block;
+    margin-top:4px;
+    font-size:12.5px;
+    color:var(--ink-faint);
+  }
+
+  /* ---------- right column: fanned card stack ---------- */
+  .col-visual{
+    position:relative;
+    height:clamp(360px,42vw,520px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .stage{
+    position:relative;
+    width:100%;
+    height:100%;
+    max-width:420px;
+  }
+
+  .card{
+    position:absolute;
+    left:50%;
+    top:50%;
+    width:250px;
+    height:158px;
+    border-radius:16px;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    border:1px solid rgba(255,255,255,0.09);
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.65);
+    transform-origin:50% 120%;
+  }
+  .card .top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+  }
+  .card .chip{
+    width:32px;height:24px;border-radius:5px;
+    background:linear-gradient(135deg, rgba(255,255,255,0.55), rgba(255,255,255,0.18));
+  }
+  .card .brand{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:-0.01em;
+  }
+  .card .foot{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+  }
+  .card .val{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:12px;
+    opacity:0.85;
+  }
+  .card .dots{
+    font-size:11px;
+    letter-spacing:2px;
+    opacity:0.55;
+  }
+
+  .c1{background:linear-gradient(155deg,#141c33,#0c1120);transform:translate(-50%,-50%) rotate(-16deg) translate(-96px,18px);z-index:1;}
+  .c2{background:linear-gradient(155deg,#182446,#0c1120);transform:translate(-50%,-50%) rotate(-7deg) translate(-46px,4px);z-index:2;}
+  .c3{background:linear-gradient(155deg,#1c2c52,#0d1226);transform:translate(-50%,-50%) rotate(2deg) translate(6px,-6px);z-index:3;}
+  .c4{background:linear-gradient(155deg,#22335e,#0d1226);transform:translate(-50%,-50%) rotate(11deg) translate(56px,4px);z-index:4;}
+  .c5{
+    background:linear-gradient(155deg,#ff2a44,#a91429);
+    transform:translate(-50%,-50%) rotate(20deg) translate(104px,20px);
+    z-index:5;
+    color:#0a0a0f;
+    border:1px solid rgba(255,255,255,0.18);
+    box-shadow:0 34px 70px -18px var(--red-glow);
+  }
+  .c5 .chip{background:linear-gradient(135deg, rgba(10,10,15,0.75), rgba(10,10,15,0.35));}
+  .c5 .dots{color:rgba(10,10,15,0.6);}
+  .c5 .val{color:rgba(10,10,15,0.75);}
+
+  .card .brand.wa{color:#f2f4fa}
+  .c1 .brand{color:#dfe4f2}
+  .c2 .brand{color:#e7ebf6}
+  .c3 .brand{color:#eef1fa}
+  .c4 .brand{color:#f4f6fc}
+
+  .glow-ring{
+    position:absolute;
+    left:50%;top:56%;
+    width:300px;height:300px;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:radial-gradient(circle, var(--red-glow), transparent 70%);
+    filter:blur(6px);
+    z-index:0;
+  }
+
+  .badge-float{
+    position:absolute;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:9px 14px 9px 10px;
+    border-radius:100px;
+    background:rgba(10,14,26,0.85);
+    border:1px solid var(--line);
+    backdrop-filter:blur(6px);
+    font-size:12.5px;
+    color:var(--ink-dim);
+    font-weight:500;
+    box-shadow:0 12px 30px -14px rgba(0,0,0,0.6);
+  }
+  .badge-float .dot{width:7px;height:7px;border-radius:50%;background:#3ddc84;box-shadow:0 0 0 3px rgba(61,220,132,0.18);}
+  .badge-top{top:6%;right:2%;}
+  .badge-bottom{bottom:8%;left:0%;}
+
+  @media (max-width: 900px){
+    .container{grid-template-columns:1fr;}
+    .col-visual{order:-1;height:340px;margin-bottom:6px;}
+    .stat-row{gap:26px;}
+    .badge-top,.badge-bottom{display:none;}
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    .c1,.c2,.c3,.c4,.c5{transition:transform .5s cubic-bezier(.2,.7,.3,1);}
+    .stage:hover .c1{transform:translate(-50%,-50%) rotate(-20deg) translate(-112px,10px);}
+    .stage:hover .c2{transform:translate(-50%,-50%) rotate(-9deg) translate(-54px,0px);}
+    .stage:hover .c3{transform:translate(-50%,-50%) rotate(2deg) translate(6px,-12px);}
+    .stage:hover .c4{transform:translate(-50%,-50%) rotate(13deg) translate(66px,0px);}
+    .stage:hover .c5{transform:translate(-50%,-50%) rotate(24deg) translate(122px,10px);}
+  }
+
+  /* ============ features & benefits ============ */
+  .features{
+    position:relative;
+    background:var(--navy-900);
+    border-top:1px solid var(--line);
+    padding:clamp(64px,9vw,110px) clamp(20px,6vw,90px);
+  }
+  .features::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(760px 420px at 90% 0%, rgba(255,42,68,0.08), transparent 65%);
+    pointer-events:none;
+  }
+  .features-inner{
+    position:relative;
+    z-index:1;
+    max-width:1280px;
+    margin:0 auto;
+  }
+  .features-head{
+    max-width:620px;
+    margin-bottom:clamp(40px,5vw,56px);
+  }
+  .features-head h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(2rem,3.2vw,2.75rem);
+    line-height:1.1;
+    letter-spacing:-0.02em;
+    color:var(--ink);
+  }
+  .features-head p{
+    margin-top:16px;
+    font-size:clamp(1rem,1.1vw,1.1rem);
+    line-height:1.6;
+    color:var(--ink-dim);
+    max-width:54ch;
+  }
+
+  .feature-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:18px;
+    overflow:hidden;
+  }
+
+  .feature-card{
+    background:var(--navy-800);
+    padding:clamp(28px,3vw,40px);
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    transition:background .2s ease;
+  }
+  .feature-card:hover{background:#141d38;}
+
+  .feature-icon{
+    width:48px;
+    height:48px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(155deg, rgba(255,42,68,0.16), rgba(255,42,68,0.04));
+    border:1px solid rgba(255,42,68,0.28);
+  }
+  .feature-icon svg{
+    width:22px;height:22px;
+    stroke:var(--red);
+    fill:none;
+    stroke-width:1.7;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+
+  .feature-card h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:1.2rem;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+
+  .feature-card p{
+    font-size:14.5px;
+    line-height:1.62;
+    color:var(--ink-dim);
+    max-width:38ch;
+  }
+
+  @media (max-width:760px){
+    .feature-grid{grid-template-columns:1fr;border-radius:14px;}
+  }
+
+  /* ============ how it works ============ */
+  .how{
+    position:relative;
+    background:var(--navy-950);
+    border-top:1px solid var(--line);
+    padding:clamp(64px,9vw,110px) clamp(20px,6vw,90px);
+    overflow:hidden;
+  }
+  .how::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(760px 420px at 8% 100%, rgba(255,42,68,0.07), transparent 65%);
+    pointer-events:none;
+  }
+  .how-inner{
+    position:relative;
+    z-index:1;
+    max-width:1280px;
+    margin:0 auto;
+  }
+  .how-head{
+    max-width:620px;
+    margin-bottom:clamp(48px,6vw,72px);
+  }
+  .how-head h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(2rem,3.2vw,2.75rem);
+    line-height:1.1;
+    letter-spacing:-0.02em;
+    color:var(--ink);
+  }
+  .how-head p{
+    margin-top:16px;
+    font-size:clamp(1rem,1.1vw,1.1rem);
+    line-height:1.6;
+    color:var(--ink-dim);
+    max-width:54ch;
+  }
+
+  .step-row{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:clamp(28px,4vw,40px);
+    position:relative;
+  }
+  .step-num{position:relative;z-index:1;}
+
+  .step{
+    position:relative;
+    z-index:1;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+  .step-num{
+    width:52px;height:52px;
+    border-radius:50%;
+    background:var(--navy-800);
+    border:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:1.15rem;
+    color:var(--ink);
+  }
+  .step:nth-child(1) .step-num{
+    background:var(--red);
+    color:#0a0a0f;
+    border-color:var(--red);
+    box-shadow:0 0 0 6px var(--red-glow);
+  }
+
+  .step h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:1.2rem;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+    margin-left:6px;
+  }
+  .step p{
+    font-size:14.5px;
+    line-height:1.62;
+    color:var(--ink-dim);
+    max-width:34ch;
+    margin-left:6px;
+  }
+
+  @media (max-width:760px){
+    .step-row{grid-template-columns:1fr;gap:36px;}
+  }
+
+  /* ============ testimonials ============ */
+  .trust{
+    position:relative;
+    background:var(--navy-900);
+    border-top:1px solid var(--line);
+    padding:clamp(64px,9vw,110px) clamp(20px,6vw,90px);
+  }
+  .trust::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(760px 420px at 90% 10%, rgba(255,42,68,0.08), transparent 65%);
+    pointer-events:none;
+  }
+  .trust-inner{
+    position:relative;
+    z-index:1;
+    max-width:1280px;
+    margin:0 auto;
+  }
+  .trust-head{
+    max-width:620px;
+    margin-bottom:clamp(40px,5vw,56px);
+  }
+  .trust-head h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(2rem,3.2vw,2.75rem);
+    line-height:1.1;
+    letter-spacing:-0.02em;
+    color:var(--ink);
+  }
+  .trust-head p{
+    margin-top:16px;
+    font-size:clamp(1rem,1.1vw,1.1rem);
+    line-height:1.6;
+    color:var(--ink-dim);
+    max-width:54ch;
+  }
+
+  .trust-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+  }
+  .t-card{
+    background:var(--navy-800);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:clamp(26px,3vw,32px);
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+  .t-stars{
+    display:flex;
+    gap:3px;
+  }
+  .t-stars svg{
+    width:15px;height:15px;
+    fill:var(--red);
+  }
+  .t-card p{
+    font-size:14.5px;
+    line-height:1.65;
+    color:var(--ink-dim);
+  }
+  .t-who{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-top:auto;
+    padding-top:6px;
+  }
+  .t-avatar{
+    width:38px;height:38px;
+    border-radius:50%;
+    background:linear-gradient(155deg, rgba(255,42,68,0.35), rgba(255,42,68,0.08));
+    border:1px solid rgba(255,42,68,0.3);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:13px;
+    color:var(--ink);
+    flex-shrink:0;
+  }
+  .t-who div{display:flex;flex-direction:column;}
+  .t-who b{font-size:13.5px;color:var(--ink);font-weight:600;}
+  .t-who span{font-size:12px;color:var(--ink-faint);}
+
+  @media (max-width:900px){
+    .trust-grid{grid-template-columns:1fr;}
+  }
+
+  /* ============ faq ============ */
+  .faq{
+    position:relative;
+    background:var(--navy-950);
+    border-top:1px solid var(--line);
+    padding:clamp(64px,9vw,110px) clamp(20px,6vw,90px) clamp(80px,10vw,120px);
+  }
+  .faq-inner{
+    max-width:840px;
+    margin:0 auto;
+  }
+  .faq-head{
+    margin-bottom:clamp(36px,5vw,48px);
+  }
+  .faq-head h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(2rem,3.2vw,2.75rem);
+    line-height:1.1;
+    letter-spacing:-0.02em;
+    color:var(--ink);
+  }
+  .faq-head p{
+    margin-top:16px;
+    font-size:clamp(1rem,1.1vw,1.1rem);
+    line-height:1.6;
+    color:var(--ink-dim);
+  }
+
+  .faq-list{
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+  }
+  .faq-item{
+    background:var(--navy-900);
+  }
+  .faq-item summary{
+    list-style:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding:22px clamp(20px,3vw,28px);
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:15.5px;
+    color:var(--ink);
+  }
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item summary .plus{
+    position:relative;
+    width:20px;height:20px;
+    flex-shrink:0;
+  }
+  .faq-item summary .plus::before,
+  .faq-item summary .plus::after{
+    content:"";
+    position:absolute;
+    background:var(--red);
+    transition:transform .2s ease;
+  }
+  .faq-item summary .plus::before{top:9px;left:2px;right:2px;height:2px;}
+  .faq-item summary .plus::after{left:9px;top:2px;bottom:2px;width:2px;}
+  .faq-item[open] summary .plus::after{transform:rotate(90deg);}
+  .faq-item[open] summary{color:var(--ink);}
+  .faq-item p{
+    padding:0 clamp(20px,3vw,28px) 22px;
+    font-size:14.5px;
+    line-height:1.65;
+    color:var(--ink-dim);
+    max-width:64ch;
+  }
+  .faq-item summary:focus-visible{outline:2px solid var(--ink);outline-offset:-2px;}
+
+  /* ============ final CTA ============ */
+  .final-cta{
+    position:relative;
+    background:linear-gradient(180deg, var(--navy-900) 0%, var(--navy-950) 100%);
+    border-top:1px solid var(--line);
+    padding:clamp(70px,10vw,120px) clamp(20px,6vw,90px);
+    overflow:hidden;
+  }
+  .final-cta::before{
+    content:"";
+    position:absolute;
+    left:50%;top:0;
+    width:900px;height:500px;
+    transform:translate(-50%,-40%);
+    background:radial-gradient(circle, var(--red-glow), transparent 68%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .final-inner{
+    position:relative;
+    z-index:1;
+    max-width:760px;
+    margin:0 auto;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+  .final-inner h2{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(2.1rem,4vw,3.2rem);
+    line-height:1.08;
+    letter-spacing:-0.02em;
+    color:var(--ink);
+  }
+  .final-inner p{
+    margin-top:18px;
+    font-size:clamp(1rem,1.2vw,1.15rem);
+    line-height:1.6;
+    color:var(--ink-dim);
+    max-width:52ch;
+  }
+  .final-inner .cta{
+    margin-top:clamp(32px,4vw,40px);
+  }
+
+  /* ============ footer ============ */
+  .site-footer{
+    background:#060810;
+    border-top:1px solid var(--line);
+    padding:clamp(44px,6vw,60px) clamp(20px,6vw,90px) 0;
+  }
+  .footer-inner{
+    max-width:1280px;
+    margin:0 auto;
+  }
+  .footer-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:32px;
+    flex-wrap:wrap;
+    padding-bottom:clamp(36px,5vw,48px);
+  }
+  .footer-logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .footer-logo .mark{
+    width:34px;height:34px;
+    border-radius:9px;
+    background:linear-gradient(155deg, var(--red), var(--red-dim));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:#0a0a0f;
+    flex-shrink:0;
+  }
+  .footer-logo span{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:16px;
+    color:var(--ink);
+    letter-spacing:-0.01em;
+  }
+
+  .footer-nav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:clamp(18px,3vw,32px);
+  }
+  .footer-nav a{
+    font-size:14px;
+    color:var(--ink-dim);
+    text-decoration:none;
+    transition:color .15s ease;
+  }
+  .footer-nav a:hover{color:var(--ink);}
+  .footer-nav a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
+
+  .footer-social{
+    display:flex;
+    gap:10px;
+  }
+  .footer-social a{
+    width:36px;height:36px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--ink-dim);
+    text-decoration:none;
+    transition:border-color .15s ease, color .15s ease;
+  }
+  .footer-social a:hover{border-color:var(--red);color:var(--ink);}
+  .footer-social a:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+  .footer-social svg{
+    width:16px;height:16px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.6;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+
+  .footer-bottom{
+    border-top:1px solid var(--line);
+    padding:20px 0 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .footer-bottom p{
+    font-size:12.5px;
+    color:var(--ink-faint);
+  }
+  .footer-bottom a{
+    font-size:12.5px;
+    color:var(--ink-faint);
+    text-decoration:none;
+    transition:color .15s ease;
+  }
+  .footer-bottom a:hover{color:var(--ink-dim);}
+
+  @media (max-width:640px){
+    .footer-top{flex-direction:column;align-items:flex-start;}
+    .footer-bottom{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero" id="offer">
+  <div class="grid-field" aria-hidden="true"></div>
+
+  <div class="container">
+
+    <div class="col-copy">
+      <div class="brandline">
+        <span class="mark" aria-hidden="true"></span>
+        <span><b>6 brands.</b> One quick claim.</span>
+      </div>
+
+      <h1>Your next gift card is one offer away</h1>
+
+      <p class="sub">
+        Amazon, Google Play, Xbox, PlayStation, iTunes and Adidas — <strong>choose the card you actually want</strong>, complete one short offer, and we send your code the same day.
+      </p>
+
+      <div class="cta-row">
+        <a class="cta" href="https://www.mobilerewards.link/view.php?id=5546832&amp;pub=3361611">Start Here</a>
+        <p class="microcopy">Takes under 2 minutes. No card required to begin.</p>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat">
+          <b>48,000+</b>
+          <span>Codes delivered</span>
+        </div>
+        <div class="stat">
+          <b>6</b>
+          <span>Brands to choose from</span>
+        </div>
+        <div class="stat">
+          <b>Same day</b>
+          <span>Delivery to your inbox</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-visual">
+      <div class="stage">
+        <div class="glow-ring" aria-hidden="true"></div>
+
+        <div class="card c1">
+          <div class="top">
+            <div class="chip"></div>
+            <span class="dots">••••</span>
+          </div>
+          <div class="foot">
+            <span class="brand">Xbox</span>
+            <span class="val">GIFT CARD</span>
+          </div>
+        </div>
+
+        <div class="card c2">
+          <div class="top">
+            <div class="chip"></div>
+            <span class="dots">••••</span>
+          </div>
+          <div class="foot">
+            <span class="brand">PlayStation</span>
+            <span class="val">GIFT CARD</span>
+          </div>
+        </div>
+
+        <div class="card c3">
+          <div class="top">
+            <div class="chip"></div>
+            <span class="dots">••••</span>
+          </div>
+          <div class="foot">
+            <span class="brand">Google Play</span>
+            <span class="val">GIFT CARD</span>
+          </div>
+        </div>
+
+        <div class="card c4">
+          <div class="top">
+            <div class="chip"></div>
+            <span class="dots">••••</span>
+          </div>
+          <div class="foot">
+            <span class="brand">iTunes</span>
+            <span class="val">GIFT CARD</span>
+          </div>
+        </div>
+
+        <div class="card c5">
+          <div class="top">
+            <div class="chip"></div>
+            <span class="dots">••••</span>
+          </div>
+          <div class="foot">
+            <span class="brand">Amazon</span>
+            <span class="val">GIFT CARD</span>
+          </div>
+        </div>
+
+        <div class="badge-float badge-top">
+          <span class="dot" aria-hidden="true"></span>
+          Live claims today
+        </div>
+        <div class="badge-float badge-bottom">
+          Adidas also available
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="features-inner">
+
+    <div class="features-head">
+      <h2>Everything the claim needs, nothing it doesn't</h2>
+      <p>Built to get you from offer to code without friction, guesswork, or a second app to manage.</p>
+    </div>
+
+    <div class="feature-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M9 3v4M15 3v4M4 9h16M4 9v9a2 2 0 0 0 2 2h4M4 9l1.5-4.5A2 2 0 0 1 7.4 3h9.2a2 2 0 0 1 1.9 1.5L20 9"/><path d="M14 21l2.5-2.5M14 21v-4h4M14 21l6-6"/></svg>
+        </div>
+        <h3>Seamless integration</h3>
+        <p>Your code drops straight into Amazon, Google Play, Xbox, PlayStation, iTunes or Adidas checkout — no separate wallet or app to install. It works exactly where you already shop, from the first redemption.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+        </div>
+        <h3>Instant delivery</h3>
+        <p>Your code lands in your inbox the moment your offer is confirmed. No manual review queue and no waiting days to hear back.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 8.7 8 11 4.6-2.3 8-6 8-11V5l-8-3z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <h3>Bank-grade security</h3>
+        <p>Every claim runs through encrypted checks before a code is ever issued. Your details stay private and are never sold or shared.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        </div>
+        <h3>Real-time tracking</h3>
+        <p>Watch your claim move from started to verified to delivered as it happens. You always know exactly where things stand.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how">
+  <div class="how-inner">
+
+    <div class="how-head">
+      <h2>Three steps to your code</h2>
+      <p>No forms to fill out in advance. Open the link, confirm you watched, and pick your card.</p>
+    </div>
+
+    <div class="step-row">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Open the link</h3>
+        <p>Tap Start Here and your claim link opens right away. No account or payment details needed at this stage.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Watch the video on YouTube</h3>
+        <p>You're taken to YouTube to watch a short video in full. This confirms your claim and unlocks the next step.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Continue and redeem</h3>
+        <p>Come back, hit continue, and choose your card. Your code is delivered to your inbox the same day.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="trust" id="testimonials">
+  <div class="trust-inner">
+
+    <div class="trust-head">
+      <h2>Claimed by people who checked twice</h2>
+      <p>Real outcomes from people who went through the same three steps.</p>
+    </div>
+
+    <div class="trust-grid">
+
+      <div class="t-card">
+        <div class="t-stars" aria-hidden="true">
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6z"/></svg>
+        </div>
+        <p>I was sure the video step was a catch, but the code hit my inbox about ten minutes after I finished it. Used it on Xbox the same night.</p>
+        <div class="t-who">
+          <div class="t-avatar">DA</div>
+          <div>
+            <b>David A.</b>
+            <span>Redeemed Xbox card</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-card">
+        <div class="t-stars" aria-hidden="true">
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6z"/></svg>
+        </div>
+        <p>Straightforward: open the link, watch the video, come back. No surveys stacked on top of surveys like other sites I've tried.</p>
+        <div class="t-who">
+          <div class="t-avatar">NF</div>
+          <div>
+            <b>Ngozi F.</b>
+            <span>Redeemed Google Play card</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="t-card">
+        <div class="t-stars" aria-hidden="true">
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6z"/></svg>
+          <svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6z"/></svg>
+        </div>
+        <p>Picked Adidas since I needed new trainers anyway. The tracker actually updated in real time, which is more than I expected.</p>
+        <div class="t-who">
+          <div class="t-avatar">RM</div>
+          <div>
+            <b>Ryan M.</b>
+            <span>Redeemed Adidas card</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="faq-inner">
+
+    <div class="faq-head">
+      <h2>Questions people ask before they start</h2>
+      <p>If yours isn't answered here, the same details are covered once you open the claim link.</p>
+    </div>
+
+    <div class="faq-list">
+
+      <details class="faq-item">
+        <summary>Is this actually free?<span class="plus" aria-hidden="true"></span></summary>
+        <p>Yes. There's no purchase involved — you complete one offer (watching a short video) and your card is issued once that step is confirmed.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Which gift cards can I choose from?<span class="plus" aria-hidden="true"></span></summary>
+        <p>Amazon, Google Play, Xbox, PlayStation, iTunes and Adidas. You pick one card after you complete the video step.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How long does delivery take?<span class="plus" aria-hidden="true"></span></summary>
+        <p>Most codes are delivered to your inbox the same day, usually within minutes of your offer being confirmed.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Do I need to enter payment details?<span class="plus" aria-hidden="true"></span></summary>
+        <p>No. Opening the link and watching the video don't require any card or payment information at any point.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>What if I don't receive my code?<span class="plus" aria-hidden="true"></span></summary>
+        <p>Check your spam folder first — most delays are filtering issues. If it still hasn't arrived, support contact details are provided on the claim page.</p>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="final-inner">
+    <h2>Six brands. One code. Yours today.</h2>
+    <p>Amazon, Google Play, Xbox, PlayStation, iTunes or Adidas — open the link, confirm your claim, and get your code delivered the same day.</p>
+    <a class="cta" href="https://www.mobilerewards.link/view.php?id=5546832&amp;pub=3361611">Start Here</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+
+    <div class="footer-top">
+      <div class="footer-logo">
+        <div class="mark" aria-hidden="true">GC</div>
+        <span>YourLogo</span>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="#offer">The Offer</a>
+        <a href="#features">Features</a>
+        <a href="#how">How It Works</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="footer-social" aria-label="Social media">
+        <a href="#" aria-label="Twitter / X">
+          <svg viewBox="0 0 24 24"><path d="M4 4l16 16M20 4 4 20"/></svg>
+        </a>
+        <a href="#" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.5"/><circle cx="17" cy="7" r="0.6" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M15 4h-2a4 4 0 0 0-4 4v3H7v4h2v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube">
+          <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="4"/><path d="M11 10l4 2-4 2z" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 YourLogo. All rights reserved.</p>
+      <a href="#privacy">Privacy Policy</a>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>
